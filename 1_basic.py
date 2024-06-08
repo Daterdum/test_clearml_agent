@@ -38,7 +38,7 @@ def main():
 
     # Some func + logging
     for i in range(10):
-        task.logger.info({"train_loss": i, "valid_loss": 0.8})
+        task.log.debug({"train_loss": i, "valid_loss": 0.8})
 
     task.logger.report_media(
         title="Example media upload",
