@@ -9,16 +9,6 @@ import matplotlib.pyplot as plt
 PROJECT_NAME = "gizatulin_test_project/demo_prep"
 
 
-def get_tasks():
-    task_list = Task.get_tasks(project_name=PROJECT_NAME)
-    for task in task_list:
-        print(f"{task.name=}, {task.get_parameters()=}")
-        models = task.get_models()
-        input_models, output_models = models['input'], models['output']
-        print(f"{[m for m in input_models]}")
-        print(f"{[m for m in output_models]}")
-
-
 def main():
     # Task create
     task = Task.init(project_name=PROJECT_NAME, task_name='basic_1', task_type=Task.TaskTypes.testing)
@@ -55,6 +45,7 @@ def main():
     task.register_artifact('train data', df)
 
     # Upload output model
+    # Download locally from here https://github.com/ultralytics/yolov5/releases/download/v6.2/yolov5x6.pt
     file_path = Path('./yolov5x6.pt')
     if file_path.exists():
         output_model = OutputModel(task=task, config_text="Some config as text")
