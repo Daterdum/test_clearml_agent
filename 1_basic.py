@@ -1,3 +1,4 @@
+import random
 from pathlib import Path
 
 from clearml import Task, Model, InputModel, OutputModel, Dataset, Logger
@@ -64,6 +65,12 @@ def main():
 
     # Metrics
     metrics_manager = task.metrics_manager
+
+    # Sclaars
+    a = lambda : random.randint(0, 10)
+    fig, ax = plt.subplots()  # Create a figure containing a single Axes.
+    ax.plot([a() for _ in range(4)], [a() for _ in range(4)])  # Plot some data on the Axes.
+    plt.show()  # Show the figure.
 
 
 if __name__ == '__main__':
