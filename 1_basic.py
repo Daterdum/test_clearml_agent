@@ -1,6 +1,9 @@
+from pathlib import Path
+
 from clearml import Task, Model, InputModel, OutputModel, Dataset, Logger
 import pandas as pd
 import matplotlib.pyplot as plt
+
 
 PROJECT_NAME = "gizatulin_test_project/demo_prep"
 
@@ -51,11 +54,13 @@ def main():
     task.register_artifact('train data', df)
 
     # Upload output model
-    output_model = OutputModel(task=task, config_text="Some config as text")
-    # Choose where to upload (by default uploads only local address), can also be set in Logger settings
-    output_model.set_upload_destination("http://clearml-fileserver.exploration.svc.k8s.datascience-dev-dp:8081")
-    output_model.update_labels({"some_label": 0, "other_label": 1})
-    output_model.update_weights(weights_filename='./yolov5x6.pt')
+    file_path = Path('./yolov5x6.pt')
+    if file_path.exists():
+        output_model = OutputModel(task=task, config_text="Some config as text")
+        # Choose where to upload (by default uploads only local address), can also be set in Logger settings
+        output_model.set_upload_destination("http://clearml-fileserver.exploration.svc.k8s.datascience-dev-dp:8081")
+        output_model.update_labels({"some_label": 0, "other_label": 1})
+        output_model.update_weights(weights_filename='./yolov5x6.pt', auto_delete_file=False)
 
     # Metrics
     metrics_manager = task.metrics_manager
