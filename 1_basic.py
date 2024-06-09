@@ -66,11 +66,30 @@ def main():
     # Metrics
     metrics_manager = task.metrics_manager
 
-    # Sclaars
+    # Random plot
     a = lambda : random.randint(0, 10)
     fig, ax = plt.subplots()  # Create a figure containing a single Axes.
     ax.plot([a() for _ in range(4)], [a() for _ in range(4)])  # Plot some data on the Axes.
     plt.show()  # Show the figure.
+
+    # Scalars
+    # report two scalar series on the same graph
+    for i in range(100):
+        Logger.current_logger().report_scalar(
+            "unified graph", "series A", iteration=i, value=1. / (i + 1)
+        )
+        Logger.current_logger().report_scalar(
+            "unified graph", "series B", iteration=i, value=10. / (i + 1)
+        )
+
+    # report two scalar series on two different graphs
+    for i in range(100):
+        Logger.current_logger().report_scalar(
+            "graph A", "series A", iteration=i, value=1. / (i + 1)
+        )
+        Logger.current_logger().report_scalar(
+            "graph B", "series B", iteration=i, value=10. / (i + 1)
+        )
 
 
 if __name__ == '__main__':
