@@ -54,9 +54,6 @@ def main():
         output_model.update_labels({"some_label": 0, "other_label": 1})
         output_model.update_weights(weights_filename='./yolov5x6.pt', auto_delete_file=False)
 
-    # Metrics
-    metrics_manager = task.metrics_manager
-
     # Random plot
     a = lambda : random.randint(0, 10)
     fig, ax = plt.subplots()  # Create a figure containing a single Axes.
